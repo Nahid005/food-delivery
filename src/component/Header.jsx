@@ -1,11 +1,29 @@
 import React from 'react'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
+
 
 import Logo from '../Images/delivery.png'
 import Avatar from '../Images/avatar.png'
+import {app} from '../firebase.config'
+import { useStateValue } from './contextApi/StateProvider';
+import {actionType} from './contextApi/Reducer'
 
 const Header = () => {
+    const [{user}, dispatch] = useStateValue()
+    const firebaseAuth = getAuth(app)
+    const provider = new GoogleAuthProvider()
+    
+    const handleLogin = async () => {
+        const {user: {refreshToken, providerData}} = await signInWithPopup(firebaseAuth, provider)
+        dispatch({
+            type: actionType.SET_USER,
+            user: providerData[0]
+        })
+    }
+
     return (
         <div className=' bg-slate-900 fixed w-screen h-auto py-3 '>
             <div className='container mx-auto flex justify-between items-center'>
@@ -39,8 +57,8 @@ const Header = () => {
                         <span className='text-white absolute right-[5px] top-[-15px]'> 0 </span>
                         <ShoppingCartOutlinedIcon />
                     </div>
-                    <div className=' shadow drop-shadow'>
-                        <img className='w-8 h-8 ' src={Avatar} alt="" />
+                    <div className='shadow drop-shadow cursor-pointer' onClick = {handleLogin}>
+                        <motion.img whileTap={{scale: .8}} className='w-8 h-8 ' src={Avatar} alt="" />
                     </div>
                 </div>
             </div>
