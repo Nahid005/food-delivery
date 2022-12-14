@@ -9,15 +9,17 @@ import Logo from '../Images/delivery.png'
 import Avatar from '../Images/avatar.png'
 import {app} from '../firebase.config'
 import { useStateValue } from './contextApi/StateProvider';
-import {actionType} from './contextApi/Reducer'
+import { actionType } from './contextApi/reducer'
+
 
 const Header = () => {
+    
     const [{user}, dispatch] = useStateValue()
     const firebaseAuth = getAuth(app)
     const provider = new GoogleAuthProvider()
     
     const handleLogin = async () => {
-        const {user: {refreshToken, providerData}} = await signInWithPopup(firebaseAuth, provider)
+        const {user:{refreshToken, providerData}} = await signInWithPopup(firebaseAuth, provider)
         dispatch({
             type: actionType.SET_USER,
             user: providerData[0]
@@ -53,9 +55,9 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className='flex items-center gap-4'>
-                    <div className='text-white relative'>
+                    <div className='text-white relative cursor-pointer'>
                         <span className='text-white absolute right-[5px] top-[-15px]'> 0 </span>
-                        <ShoppingCartOutlinedIcon />
+                        <span> <ShoppingCartOutlinedIcon /> </span>
                     </div>
                     <div className='shadow drop-shadow cursor-pointer' onClick = {handleLogin}>
                         <motion.img whileTap={{scale: .8}} className='w-8 h-8 ' src={Avatar} alt="" />

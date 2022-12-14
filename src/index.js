@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import {BrowserRouter as Router} from 'react-router-dom'
+
 import { StateProvider } from './component/contextApi/StateProvider';
 import { initialState } from './component/contextApi/InitialState';
-import { reducer } from './component/contextApi/Reducer';
+import reducer from './component/contextApi/reducer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

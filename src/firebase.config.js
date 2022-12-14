@@ -6,6 +6,7 @@ import {getStorage} from 'firebase/storage'
 const firebaseConfig = {
   apiKey: "AIzaSyA9w4xp8I8JwpRCg4N9lSsrOb1_GeNA5K8",
   authDomain: "food-delivery-c7235.firebaseapp.com",
+  databaseURL: "https://food-delivery-c7235-default-rtdb.firebaseio.com",
   projectId: "food-delivery-c7235",
   storageBucket: "food-delivery-c7235.appspot.com",
   messagingSenderId: "167031842930",
